@@ -55,15 +55,17 @@ Note that we deleted some tools to do automatic prompt and label search that are
 
  ## Download our pre-computed kernels
 Here are the links for downloading our pre-computed kernels:
-* [SGD kernels](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/sgd.zip)
-* [SignGD kernels](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/signgd.zip)
-* [Asymmetric-SignGD kernels](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/asymmetric_signgd.zip)
 
-The provided kernels were computed with RoBERTa-base for 12 datasets (SST-2, MR, CR, MPQA, Subj, TREC, MNLI, SNLI, QNLI, RTE, MRPC, QQP) over 5 seeds on both 16-shot and 64-shot datasets, where k-shot is the number of training/validation examples per label.
-The SGD kernels also include 6 datasets (SST-2, MR, CR, QNLI, RTE, QQP) for 512-shot datasets.
+|        | SGD | SignGD | Asymmetric-SignGD | 
+|--------|-----|--------|-------------------|
+| 16-shot| [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-sgd-16-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-sgd-16-shot.zip)    |  [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-signgd-16-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-signgd-16-shot.zip)       |  [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-asymmetric_signgd-16-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-asymmetric_signgd-16-shot.zip) |
+| 64-shot| [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-sgd-64-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-sgd-64-shot.zip)    |  [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-signgd-64-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-signgd-64-shot.zip)       |  [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-asymmetric_signgd-64-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-asymmetric_signgd-64-shot.zip) |
+| 512-shot| [prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/prompt-sgd-512-shot.zip) / [no-prompt](https://nlp.cs.princeton.edu/projects/LM-Kernel-FT/roberta-base/no_prompt-sgd-512-shot.zip)  | | |||
 
-For each task and data split, we include separate files for training, development, test kernel matrices. Each file can be read using `torch.load` and contains a tuple of (kernel matrix, labels),
-and the kernel matrix has the shape of [training examples, training logits, X examples, X logits], where X dataset is given by the file name (train, dev or test).
+The provided kernels were computed for RoBERTa-base for 14 datasets (SST-2, SST-5, MR, CR, MPQA, Subj, TREC, AG News, MNLI, SNLI, QNLI, RTE, MRPC, QQP). The no prompt kernels were obtained by initializing the [CLS] head with the logistic regression solution.
+
+For each task and data split, we include separate files for training, development, test kernel matrices and pre-trained logits. Each file can be read using `torch.load` and contains a tuple of (kernel matrix, labels),
+and the kernel matrix has the shape of [training examples, training logits, *X* examples, *X* logits], where *X* dataset is given by the file name (train, dev or test).
 
 ## Bugs and questions?
 If you have any questions related to the code or the paper, feel free to email Alexander and Sadhika (`{awettig,smalladi}@cs.princeton.edu`). If you encounter a problem or bug when using the code, you can also open an issue.
